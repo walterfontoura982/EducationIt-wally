@@ -10,7 +10,7 @@ def create_app():
 
     @app.route("/health", methods=["GET"])
     def health():
-        return jsonify({"status": "ok"}), 200
+        return jsonify({"status": "Super -- >>ok"}), 200
 
     @app.route("/orders", methods=["GET"])
     def list_orders():
