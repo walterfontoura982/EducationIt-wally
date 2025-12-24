@@ -1,0 +1,16 @@
+- name: Deploy Orders API
+  hosts: API
+  become: yes
+
+  tasks:
+    - name: Actualizar paquetes
+      apt:
+        update_cache: yes
+      when:: ansible_os_family == 'Debian'
+    # - name: Instalar dependencias
+    # - name: Crear carpeta de aplicacion
+    # - name: Copiar aplicacion
+    # - name: Copiar requerimientos
+    # - name: Copiar dependencias de aplicacion
+    # - name: Crear el entorno virtual
+    # - name: Iniciar la aplicacion
