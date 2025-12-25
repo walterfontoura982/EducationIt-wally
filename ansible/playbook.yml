@@ -19,10 +19,35 @@
       file:
         path: /opt/api
         state: directory
-        model: '0755'
-        owner: {{ansible_user}}
-    # - name: Copiar aplicacion
-    # - name: Copiar requerimientos
-    # - name: Copiar dependencias de aplicacion
-    # - name: Crear el entorno virtual
-    # - name: Iniciar la aplicacion
+        mode: '0755'
+        owner: "{{ansible_user}}"
+    - name: Copiar aplicacion
+      copy:
+        src: ../app/main.py
+        dest: /opt/api/main.py
+        mode: '0644'
+        owner: "{{ansible_user}}"
+        group: "{{ansible_user}}"
+    - name: Copiar dependencias de aplicacion
+      copy:
+        src: ../requirements.txt
+        dest: /opt/api/requirements.txt
+        mode: '0644'
+        owner: "{{ansible_user}}"
+        group: "{{ansible_user}}"
+    - name: Crear el entorno virtual
+      command: python3 -m venv /opt/api/.venv
+      args:
+        creates: /opt/api/.venv/bin/activate
+      when: ansible_os_family == "Debian"
+    - name: Instalar dependencias de aplicacion
+      pip:
+        requirements: /opt/api/requirements.txt
+        virtualenv: /opt/api/.venv
+    - name: Iniciar la aplicacion
+      command: .venv/bin/python3 /opt/api/main.py
+      args:
+        chdir: /opt/api
+    #   shell:
+    #     cmd: |
+    #       .venv/bin/python3 /opt/api/main.py
