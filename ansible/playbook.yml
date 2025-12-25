@@ -5,10 +5,22 @@
   tasks:
     - name: Actualizar paquetes
       apt:
-        update_cache: yes
-      when:: ansible_os_family == 'Debian'
-    # - name: Instalar dependencias
-    # - name: Crear carpeta de aplicacion
+       update_cache: yes
+      when: ansible_os_family == "Debian"
+    - name: Instalar dependencias
+      package:
+        name:
+          - python3
+          - python3-pip
+          - python3-venv
+          - git 
+        state: present
+    - name: Crear carpeta de aplicacion
+      file:
+        path: /opt/api
+        state: directory
+        model: '0755'
+        owner: {{ansible_user}}
     # - name: Copiar aplicacion
     # - name: Copiar requerimientos
     # - name: Copiar dependencias de aplicacion
