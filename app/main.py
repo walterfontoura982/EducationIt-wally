@@ -33,3 +33,28 @@ def create_app():
 if __name__ == "__main__":
     app = create_app()
     app.run(host="0.0.0.0", port=8000)
+    
+    
+''' No andaba por esto 
+🔴 Entonces… ¿por qué desde el navegador no responde?
+1️⃣ Security Group de la EC2 ❗ (ESTE ES EL MOTIVO REAL)
+
+Aunque Flask esté perfecto, AWS bloquea el puerto 8000 por defecto.
+
+Tenés que habilitarlo en el Security Group de la instancia.
+
+✔️ Regla necesaria
+
+En el Security Group:
+
+Tipo	Protocolo	Puerto	Origen
+Custom TCP	TCP	8000	0.0.0.0/0
+
+SSH  in aws
+Type            Protocol    Port range    Description
+Custom TCP      TCP         8000            0.0.0.0/0    
+SSH             TCP         22              Mi Ip/32 o 0.0.0.0/0
+
+
+    
+'''
