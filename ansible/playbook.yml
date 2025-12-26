@@ -48,3 +48,6 @@
       command: .venv/bin/python3 /opt/api/main.py
       args:
         chdir: /opt/api
+    #   shell:
+    #     cmd: |
+    #       .venv/bin/python3 /opt/api/main.py
